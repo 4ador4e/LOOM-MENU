@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loom - Art and Culture • Drinks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg:    #18192e;
+            --ink:   #f69621;   /* orange — main text */
+            --red:   #e91d38;   /* red accent */
+            --blue:  #26b3e2;   /* blue accent */
+            --dust:  #1f6284;   /* border lines */
+            --faded: #e88d19;   /* subdued orange */
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: 'Cormorant Garamond', serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Grain texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 2rem 6rem;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+        }
+
+        /* Spinning ring — absolutely centered behind content */
+        .loom-circle {
+            position: absolute;
+            width: min(70vw, 400px);
+            height: min(70vw, 400px);
+            border-radius: 50%;
+            border: 1px solid rgba(233, 29, 56, 0.25);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: spin 60s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .loom-circle::before {
+            content: '';
+            position: absolute;
+            inset: 20px;
+            border-radius: 50%;
+            border: 1px dashed rgba(38, 179, 226, 0.15);
+        }
+        .loom-circle::after {
+            content: '';
+            position: absolute;
+            inset: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(246, 150, 33, 0.1);
+        }
+        @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+        /* Hero content stack — sits on top of the ring */
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .hero-logo {
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.3s forwards;
+        }
+
+        .hero-tag {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--red);
+            opacity: 0;
+            animation: fadeUp 1s ease 0.5s forwards;
+        }
+
+        .hero-sub {
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--faded);
+            text-align: center;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.7s forwards;
+        }
+
+        /* Scroll hint pinned to bottom of hero */
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 49%;
+            transform: translateX(-50%);
+            font-family: 'DM Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            color: var(--faded);
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+            animation: fadeUp 1s ease 1.2s forwards;
+            z-index: 1;
+        }
+        .scroll-hint::after {
+            content: '';
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--red), transparent);
+            animation: lineGrow 1.8s ease 1.5s infinite;
+        }
+        @keyframes lineGrow {
+            0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
+            100% { transform: scaleY(1); transform-origin: top; opacity: 0; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── NAV TABS ── */
+        .tabs-wrap {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg);
+            border-bottom: 1px solid var(--dust);
+            padding: 0 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .tabs::-webkit-scrollbar { display: none; }
+
+        .tab {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--faded);
+            padding: 1.1rem 1.4rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            border-bottom: 2px solid transparent;
+            transition: color 0.3s, border-color 0.3s;
+            white-space: nowrap;
+            text-decoration: none;
+            display: block;
+        }
+        .tab:hover  { color: var(--ink); }
+        .tab.active { color: var(--red); border-bottom-color: var(--red); }
+
+        /* ── MENU BODY ── */
+        .menu-body {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 5rem 2rem 8rem;
+        }
+
+        /* ── SECTION ── */
+        .section {
+            margin-bottom: 7rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--dust);
+        }
+
+        .section-number {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--red);
+            letter-spacing: 0.15em;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            flex: 1;
+        }
+        .section-title em {
+            font-style: italic;
+            color: var(--red);
+        }
+
+        /* ── ITEMS ── */
+        .items {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: baseline;
+            gap: 0.3rem 2rem;
+            padding: 1.1rem 0;
+            border-bottom: 1px solid rgba(240, 29, 59, 0.15);
+            position: relative;
+            transition: padding-left 0.3s;
+        }
+
+        .item::before {
+            content: '';
+            position: absolute;
+            left: -1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 0;
+            background: var(--red);
+            transition: height 0.3s;
+            border-radius: 2px;
+        }
+        .item:hover { padding-left: 0.5rem; }
+        .item:hover::before { height: 60%; }
+
+        .item-name {
+            font-size: 1.25rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+
+        .item-note {
+            font-size: 0.82rem;
+            color: var(--faded);
+            font-style: italic;
+            font-weight: 300;
+            grid-column: 1;
+        }
+
+        .item-price {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--blue);
+            letter-spacing: 0.05em;
+            grid-row: 1;
+            grid-column: 2;
+            align-self: start;
+            padding-top: 0.3rem;
+        }
+
+        /* Sub-group label */
+        .sub-group {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin: 2rem 0 0.5rem;
+        }
+
+        /* ── DIVIDER ── */
+        .ornament {
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--red);
+            opacity: 0.4;
+            font-size: 1.2rem;
+            letter-spacing: 0.8em;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--dust);
+        }
+
+        .footer::before {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1px;
+            background: var(--red);
+            margin: 0 auto 2rem;
+        }
+
+        .footer-name {
+            color: var(--red);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 300;
+            letter-spacing: -0.01em;
+        }
+
+        .footer-info {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            color: var(--faded);
+            margin-top: 1rem;
+            line-height: 2;
+        }
+        .footer-info a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+        .footer-info a:hover { text-decoration: underline; }
+
+        .footer-tagline {
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--faded);
+            margin-top: 1.5rem;
+            font-weight: 300;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 600px) {
+            .hero-logo { width: 120px; height: 120px; }
+            .menu-body { padding: 3rem 1.25rem 6rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="loom-circle"></div>
+
+    <div class="hero-content">
+        <img class="hero-logo" src="loom-transparent.png" height="225" width="225"/>
+        <p class="hero-tag">Art &amp; Culture · Drinks Menu</p>
+        <p class="hero-sub">Neshto mozhi da pishi cheesy ili inviting ili neznam blabla</p>
+    </div>
+
+    <div class="scroll-hint">Explore</div>
+</section>
+
+<!-- NAV BAR -->
+<nav class="tabs-wrap">
+    <div class="tabs">
+        <a class="tab active" href="#coffee">Coffee</a>
+        <a class="tab" href="#tea">Tea</a>
+        <a class="tab" href="#non-alcoholic">Non-alcoholic</a>
+        <a class="tab" href="#alcohol">Alcohol</a>
+    </div>
+</nav>
+
+<!-- MENU -->
+<main class="menu-body">
+
+    <!-- COFFEE -->
+    <section class="section" id="coffee">
+        <div class="section-header">
+            <span class="section-number">01</span>
+            <h2 class="section-title"><em>Coffee</em></h2>
+        </div>
+        <div class="items">
+            <div class="item">
+                <span class="item-name">Espresso</span>
+                <span class="item-price">80 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Macchiato</span>
+                <span class="item-price">100 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Americano</span>
+                <span class="item-price">80 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Freddo Espresso</span>
+                <span class="item-price">100 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Freddo Cappuccino</span>
+                <span class="item-price">120 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Cappuccino</span>
+                <span class="item-price">100 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Hot Chocolate</span>
+                <span class="item-price">150 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Nescafe</span>
+                <span class="item-price">100 ден</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="ornament">· · ·</div>
+
+    <!-- TEA -->
+    <section class="section" id="tea">
+        <div class="section-header">
+            <span class="section-number">02</span>
+            <h2 class="section-title"><em>Tea</em></h2>
+        </div>
+        <div class="items">
+            <div class="item">
+                <span class="item-name">Tea</span>
+                <span class="item-price">80 ден</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="ornament">· · ·</div>
+
+    <!-- NON-ALCOHOLIC -->
+    <section class="section" id="non-alcoholic">
+        <div class="section-header">
+            <span class="section-number">03</span>
+            <h2 class="section-title"><em>Non-alcoholic</em></h2>
+        </div>
+        <div class="items">
+            <div class="item">
+                <span class="item-name">Juice</span>
+                <span class="item-price">120 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Sok / Voda / etc.</span>
+                <span class="item-price">120 ден</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="ornament">· · ·</div>
+
+    <!-- ALCOHOL -->
+    <section class="section" id="alcohol">
+        <div class="section-header">
+            <span class="section-number">04</span>
+            <h2 class="section-title"><em>Alcohol</em></h2>
+        </div>
+        <div class="items">
+            <div class="item">
+                <span class="item-name">Pivo</span>
+                <span class="item-price">150 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Vino</span>
+                <span class="item-price">180 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Zestoki</span>
+                <span class="item-price">180 ден</span>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <h2 class="footer-name">Loom</h2>
+    <p class="footer-info">
+        Art &amp; Culture · Miroslav Krleza 46, 1-1, Skopje, North Macedonia<br>
+        Open Mon–Sun · 09:00 – 00:00<br>
+        <a href="https://www.instagram.com/loom.skopje/" target="_blank">@loom.skopje</a>
+    </p>
+    <p class="footer-tagline">neshto neshto neshto quirky</p>
+</footer>
+
+<script>
+    // Highlight active tab on scroll
+    const sections = document.querySelectorAll('.section');
+    const tabs     = document.querySelectorAll('.tab');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.id;
+                tabs.forEach(t => {
+                    t.classList.toggle('active', t.getAttribute('href') === `#${id}`);
+                });
+            }
+        });
+    }, { rootMargin: '-40% 0px -50% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+
+    // Smooth scroll on tab click
+    tabs.forEach(tab => {
+        tab.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(tab.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
+    // Fade-in sections on scroll
+    const fadeObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    sections.forEach(s => {
+        s.style.opacity = '0';
+        s.style.transform = 'translateY(30px)';
+        s.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        fadeObs.observe(s);
+    });
+</script>
+
+</body>
+</html>
