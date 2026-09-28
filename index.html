@@ -366,8 +366,54 @@
 
         /* ── RESPONSIVE ── */
         @media (max-width: 600px) {
-            .hero-logo { width: 120px; height: 120px; }
-            .menu-body { padding: 3rem 1.25rem 6rem; }
+            .hero {
+                min-height: 100svh;
+                padding: 3rem 1.25rem 6rem;
+            }
+
+            .hero-content {
+                width: 100%;
+                transform: translateY(25px);
+            }
+
+            .hero-logo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .scroll-hint {
+                left: 50%;
+                bottom: 1.8rem;
+                transform: translateX(-50%);
+            }
+
+            .hero-sub {
+                max-width: 90%;
+                line-height: 1.5;
+            }
+
+            .menu-body {
+                padding: 3rem 1.25rem 6rem;
+            }
+            /* Smaller mobile footer */
+            .footer {
+                padding: 3rem 1.25rem;
+            }
+
+            .footer-name {
+                font-size: 2.2rem;
+            }
+
+            .footer-info {
+                font-size: 0.58rem;
+                letter-spacing: 0.15em;
+                line-height: 1.9;
+            }
+
+            .footer-tagline {
+                font-size: 0.9rem;
+                margin-top: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -380,7 +426,7 @@
     <div class="hero-content">
         <img class="hero-logo" src="loom-transparent.png" height="225" width="225"/>
         <p class="hero-tag">Art &amp; Culture · Drinks Menu</p>
-        <p class="hero-sub">Neshto mozhi da pishi cheesy ili inviting ili neznam blabla</p>
+        <p class="hero-sub">come for the coffee, stay for whatever happens</p>
     </div>
 
     <div class="scroll-hint">Explore</div>
@@ -389,9 +435,10 @@
 <!-- NAV BAR -->
 <nav class="tabs-wrap">
     <div class="tabs">
-        <a class="tab active" href="#coffee">Coffee</a>
-        <a class="tab" href="#tea">Tea</a>
-        <a class="tab" href="#non-alcoholic">Non-alcoholic</a>
+        <a class="tab active" href="#coffee">Coffee&Tea</a>
+        <a class="tab" href="#non-alcoholic">Non-alcoholic beverages</a>
+        <a class="tab" href="#beer">Beer</a>
+        <a class="tab" href="#wine">Wine</a>
         <a class="tab" href="#alcohol">Alcohol</a>
     </div>
 </nav>
@@ -403,32 +450,36 @@
     <section class="section" id="coffee">
         <div class="section-header">
             <span class="section-number">01</span>
-            <h2 class="section-title"><em>Coffee</em></h2>
+            <h2 class="section-title"><em>Coffee&Tea</em></h2>
         </div>
         <div class="items">
             <div class="item">
                 <span class="item-name">Espresso</span>
-                <span class="item-price">80 ден</span>
+                <span class="item-price">100 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Small macchiato</span>
+                <span class="item-price">100 ден</span>
             </div>
             <div class="item">
                 <span class="item-name">Macchiato</span>
-                <span class="item-price">100 ден</span>
-            </div>
-            <div class="item">
-                <span class="item-name">Americano</span>
-                <span class="item-price">80 ден</span>
-            </div>
-            <div class="item">
-                <span class="item-name">Freddo Espresso</span>
-                <span class="item-price">100 ден</span>
-            </div>
-            <div class="item">
-                <span class="item-name">Freddo Cappuccino</span>
                 <span class="item-price">120 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Cappuccino</span>
+                <span class="item-name">Americano</span>
                 <span class="item-price">100 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Freddo Espresso</span>
+                <span class="item-price">140 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Freddo Cappuccino</span>
+                <span class="item-price">160 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Cappuccino</span>
+                <span class="item-price">130 ден</span>
             </div>
             <div class="item">
                 <span class="item-name">Hot Chocolate</span>
@@ -436,22 +487,74 @@
             </div>
             <div class="item">
                 <span class="item-name">Nescafe</span>
-                <span class="item-price">100 ден</span>
+                <span class="item-price">140 ден</span>
             </div>
+            <div class="item">
+                <span class="item-name">Tea</span>
+                <span class="item-price">80 ден</span>
+            </div>
+
         </div>
     </section>
 
     <div class="ornament">· · ·</div>
 
-    <!-- TEA -->
-    <section class="section" id="tea">
+
+    <div class="ornament">· · ·</div>
+
+    <!-- NON-ALCOHOLIC -->
+    <section class="section" id="non-alcoholic">
         <div class="section-header">
             <span class="section-number">02</span>
-            <h2 class="section-title"><em>Tea</em></h2>
+            <h2 class="section-title"><em>Non-alcoholic</em></h2>
         </div>
         <div class="items">
             <div class="item">
-                <span class="item-name">Tea</span>
+                <span class="item-name">Coca-Cola</span>
+                <span class="item-price">110 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Coca-Cola Zero</span>
+                <span class="item-price">110 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Fanta</span>
+                <span class="item-price">110 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Schweppes bitter lemon</span>
+                <span class="item-price">110 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Schweppes tangerine</span>
+                <span class="item-price">110 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Next - Orange</span>
+                <span class="item-price">120 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Next - Apple</span>
+                <span class="item-price">120 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Next - Forest Berries</span>
+                <span class="item-price">120 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Next - Peach and Apple</span>
+                <span class="item-price">120 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Fuze Iced Tea - Peach</span>
+                <span class="item-price">120 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Water</span>
+                <span class="item-price">80 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Sparkling Water</span>
                 <span class="item-price">80 ден</span>
             </div>
         </div>
@@ -459,44 +562,114 @@
 
     <div class="ornament">· · ·</div>
 
-    <!-- NON-ALCOHOLIC -->
-    <section class="section" id="non-alcoholic">
+    <!-- ALCOHOL -->
+    <section class="section" id="beer">
         <div class="section-header">
             <span class="section-number">03</span>
-            <h2 class="section-title"><em>Non-alcoholic</em></h2>
+            <h2 class="section-title"><em>Beer</em></h2>
         </div>
         <div class="items">
             <div class="item">
-                <span class="item-name">Juice</span>
-                <span class="item-price">120 ден</span>
+                <span class="item-name">Skopsko</span>
+                <span class="item-price">150 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Sok / Voda / etc.</span>
-                <span class="item-price">120 ден</span>
+                <span class="item-name">Skopsko Smooth</span>
+                <span class="item-price">150 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Skopsko Weiss</span>
+                <span class="item-price">180 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Birra Moretti</span>
+                <span class="item-price">180 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Amstel</span>
+                <span class="item-price">170 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Heineken</span>
+                <span class="item-price">200 ден</span>
             </div>
         </div>
     </section>
 
-    <div class="ornament">· · ·</div>
-
-    <!-- ALCOHOL -->
-    <section class="section" id="alcohol">
+    <section class="section" id="wine">
         <div class="section-header">
             <span class="section-number">04</span>
+            <h2 class="section-title"><em>Wine</em></h2>
+        </div>
+        <div class="items">
+            <div class="item">
+                <span class="item-name">White Wine</span>
+                <span class="item-price">150 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Rose Wine</span>
+                <span class="item-price">150 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Red Wine</span>
+                <span class="item-price">180 ден</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="alcohol">
+        <div class="section-header">
+            <span class="section-number">05</span>
             <h2 class="section-title"><em>Alcohol</em></h2>
         </div>
         <div class="items">
             <div class="item">
-                <span class="item-name">Pivo</span>
-                <span class="item-price">150 ден</span>
+                <span class="item-name">Jack Daniel's</span>
+                <span class="item-price">280 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Vino</span>
+                <span class="item-name">Jameson</span>
+                <span class="item-price">250 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Jameson black</span>
+                <span class="item-price">350 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Tequila</span>
+                <span class="item-price">200 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Finlandia vodka</span>
+                <span class="item-price">250 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Grey Goose vodka</span>
+                <span class="item-price">350 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Martini Bianco</span>
+                <span class="item-price">160 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Martini Rosso</span>
+                <span class="item-price">160 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Zlatni Pelin</span>
+                <span class="item-price">200 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Gin</span>
+                <span class="item-price">210 ден</span>
+            </div>
+            <div class="item">
+                <span class="item-name">Rakija</span>
                 <span class="item-price">180 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Zestoki</span>
-                <span class="item-price">180 ден</span>
+                    <span class="item-name">Bacardi White Rum</span>
+                <span class="item-price">200 ден</span>
             </div>
         </div>
     </section>
@@ -511,7 +684,7 @@
         Open Mon–Sun · 09:00 – 00:00<br>
         <a href="https://www.instagram.com/loom.skopje/" target="_blank">@loom.skopje</a>
     </p>
-    <p class="footer-tagline">neshto neshto neshto quirky</p>
+    <p class="footer-tagline">art, drinks & everything in between.</p>
 </footer>
 
 <script>
