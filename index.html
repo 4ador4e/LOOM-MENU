@@ -38,6 +38,62 @@
             pointer-events: none;
             z-index: 0;
         }
+        /* ─────────────────────────────
+         LANGUAGE SWITCHER
+        ───────────────────────────── */
+
+        .language-switcher {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 1000;
+
+            display: flex;
+            align-items: center;
+            gap: 0.15rem;
+
+            padding: 0.25rem;
+
+            background: rgba(24, 25, 46, 0.75);
+            border: 1px solid rgba(246, 150, 33, 0.25);
+            border-radius: 999px;
+
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+
+            font-family: 'DM Mono', monospace;
+            font-size: 0.58rem;
+            letter-spacing: 0.08em;
+        }
+
+        .language-btn {
+            border: none;
+            background: transparent;
+
+            color: var(--faded);
+
+            font-family: inherit;
+            font-size: inherit;
+            letter-spacing: inherit;
+
+            padding: 0.35rem 0.55rem;
+            border-radius: 999px;
+
+            cursor: pointer;
+
+            transition:
+                    color 0.25s ease,
+                    background 0.25s ease;
+        }
+
+        .language-btn:hover {
+            color: var(--ink);
+        }
+
+        .language-btn.active {
+            background: var(--red);
+            color: #fff;
+        }
 
         /* ── HERO ── */
         .hero {
@@ -382,6 +438,15 @@
 
         /* ── RESPONSIVE ── */
         @media (max-width: 600px) {
+            .language-switcher {
+                top: 1rem;
+                right: 1rem;
+                font-size: 0.55rem;
+            }
+
+            .language-btn {
+                padding: 0.3rem 0.5rem;
+            }
             .hero {
                 min-height: 100svh;
                 padding: 3rem 1.25rem 6rem;
@@ -433,27 +498,50 @@
 </head>
 <body>
 
+<!-- LANGUAGE SWITCHER -->
+<div class="language-switcher">
+    <button class="language-btn active" data-lang="en">EN</button>
+    <button class="language-btn" data-lang="mk">MK</button>
+</div>
+
 <!-- HERO -->
 <section class="hero">
     <div class="loom-circle"></div>
 
     <div class="hero-content">
         <img class="hero-logo" src="loom-transparent.png" height="225" width="225"/>
-        <p class="hero-tag">Art &amp; Culture · Drinks Menu</p>
-        <p class="hero-sub">come for the coffee, stay for whatever happens</p>
+        <p class="hero-tag"
+           data-en="Art &amp; Culture · Drinks Menu"
+           data-mk="Art &amp; Culture · Мени за пијалаци">
+            Art &amp; Culture · Drinks Menu
+        </p>
+        <p class="hero-sub"
+           data-en="come for the coffee, stay for whatever happens"
+           data-mk="дојди на кафе, остани за што и да се случи">
+            come for the coffee, stay for whatever happens
+        </p>
     </div>
 
-    <div class="scroll-hint">Explore</div>
+    <div class="scroll-hint"
+         data-en="Explore"
+         data-mk="Истражи">
+        Explore
+    </div>
 </section>
 
 <!-- NAV BAR -->
 <nav class="tabs-wrap">
     <div class="tabs">
-        <a class="tab active" href="#coffee">Coffee&Tea</a>
-        <a class="tab" href="#non-alcoholic">Non-alcoholic beverages</a>
-        <a class="tab" href="#beer">Beer</a>
-        <a class="tab" href="#wine">Wine</a>
-        <a class="tab" href="#alcohol">Alcohol</a>
+        <a class="tab active" href="#coffee"
+           data-en="Coffee&Tea" data-mk="Кафе и чај">Coffee&Tea</a>
+        <a class="tab" href="#non-alcoholic"
+           data-en="Non-alcoholic beverages" data-mk="Безалкохолни пијалаци">Non-alcoholic beverages</a>
+        <a class="tab" href="#beer"
+           data-en="Beer" data-mk="Пиво">Beer</a>
+        <a class="tab" href="#wine"
+           data-en="Wine" data-mk="Вино">Wine</a>
+        <a class="tab" href="#alcohol"
+           data-en="Alcohol" data-mk="Алкохол">Alcohol</a>
     </div>
 </nav>
 
@@ -464,47 +552,49 @@
     <section class="section" id="coffee">
         <div class="section-header">
             <span class="section-number">01</span>
-            <h2 class="section-title"><em>Coffee&Tea</em></h2>
+            <h2 class="section-title"><em
+                    data-en="Coffee&Tea"
+                    data-mk="Кафе и чај">Coffee&Tea</em></h2>
         </div>
         <div class="items">
             <div class="item">
-                <span class="item-name">Espresso</span>
+                <span class="item-name" data-en="Espresso" data-mk="Еспресо">Espresso</span>
                 <span class="item-price">100 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Small macchiato</span>
+                <span class="item-name" data-en="Small macchiato" data-mk="Мало макијато">Small macchiato</span>
                 <span class="item-price">100 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Macchiato</span>
+                <span class="item-name" data-en="Macchiato" data-mk="Макијато">Macchiato</span>
                 <span class="item-price">120 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Americano</span>
+                <span class="item-name" data-en="Americano" data-mk="Американо">Americano</span>
                 <span class="item-price">100 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Freddo Espresso</span>
+                <span class="item-name" data-en="Freddo Espresso" data-mk="Фредо еспресо">Freddo Espresso</span>
                 <span class="item-price">140 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Freddo Cappuccino</span>
+                <span class="item-name" data-en="Freddo Cappuccino" data-mk="Фредо капучино">Freddo Cappuccino</span>
                 <span class="item-price">160 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Cappuccino</span>
+                <span class="item-name" data-en="Cappuccino" data-mk="Капучино">Cappuccino</span>
                 <span class="item-price">130 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Hot Chocolate</span>
+                <span class="item-name" data-en="Hot Chocolate" data-mk="Топло чоколадо">Hot Chocolate</span>
                 <span class="item-price">150 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Nescafe</span>
+                <span class="item-name" data-en="Nescafe" data-mk="Нескафе">Nescafe</span>
                 <span class="item-price">140 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Tea</span>
+                <span class="item-name" data-en="Tea" data-mk="Чај">Tea</span>
                 <span class="item-price">80 ден</span>
             </div>
 
@@ -520,55 +610,57 @@
     <section class="section" id="non-alcoholic">
         <div class="section-header">
             <span class="section-number">02</span>
-            <h2 class="section-title"><em>Non-alcoholic</em></h2>
+            <h2 class="section-title"><em
+                    data-en="Non-alcoholic"
+                    data-mk="Безалкохолни">Non-alcoholic</em></h2>
         </div>
         <div class="items">
             <div class="item">
-                <span class="item-name">Coca-Cola</span>
+                <span class="item-name" data-en="Coca-Cola" data-mk="Кока-Кола">Coca-Cola</span>
                 <span class="item-price">110 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Coca-Cola Zero</span>
+                <span class="item-name" data-en="Coca-Cola Zero" data-mk="Кока-Кола Зеро">Coca-Cola Zero</span>
                 <span class="item-price">110 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Fanta</span>
+                <span class="item-name" data-en="Fanta" data-mk="Фанта">Fanta</span>
                 <span class="item-price">110 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Schweppes bitter lemon</span>
+                <span class="item-name" data-en="Schweppes bitter lemon" data-mk="Schweppes bitter lemon">Schweppes bitter lemon</span>
                 <span class="item-price">110 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Schweppes tangerine</span>
+                <span class="item-name" data-en="Schweppes tangerine" data-mk="Schweppes tangerine">Schweppes tangerine</span>
                 <span class="item-price">110 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Next - Orange</span>
+                <span class="item-name" data-en="Next - Orange" data-mk="Next - Портокал">Next - Orange</span>
                 <span class="item-price">120 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Next - Apple</span>
+                <span class="item-name" data-en="Next - Apple" data-mk="Next - Јаболко">Next - Apple</span>
                 <span class="item-price">120 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Next - Forest Berries</span>
+                <span class="item-name" data-en="Next - Forest Berries" data-mk="Next - Шумско овошје">Next - Forest Berries</span>
                 <span class="item-price">120 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Next - Peach and Apple</span>
+                <span class="item-name" data-en="Next - Peach and Apple" data-mk="Next - Праска и јаболко">Next - Peach and Apple</span>
                 <span class="item-price">120 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Fuze Iced Tea - Peach</span>
+                <span class="item-name" data-en="Fuze Iced Tea - Peach" data-mk="Fuze ладен чај - Праска">Fuze Iced Tea - Peach</span>
                 <span class="item-price">120 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Water</span>
+                <span class="item-name" data-en="Water" data-mk="Вода">Water</span>
                 <span class="item-price">80 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Sparkling Water</span>
+                <span class="item-name" data-en="Sparkling Water" data-mk="Газирана вода">Sparkling Water</span>
                 <span class="item-price">80 ден</span>
             </div>
         </div>
@@ -580,31 +672,33 @@
     <section class="section" id="beer">
         <div class="section-header">
             <span class="section-number">03</span>
-            <h2 class="section-title"><em>Beer</em></h2>
+            <h2 class="section-title"><em
+                    data-en="Beer"
+                    data-mk="Пиво">Beer</em></h2>
         </div>
         <div class="items">
             <div class="item">
-                <span class="item-name">Skopsko</span>
+                <span class="item-name" data-en="Skopsko" data-mk="Скопско">Skopsko</span>
                 <span class="item-price">150 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Skopsko Smooth</span>
+                <span class="item-name" data-en="Skopsko Smooth" data-mk="Скопско Smooth">Skopsko Smooth</span>
                 <span class="item-price">150 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Skopsko Weiss</span>
+                <span class="item-name" data-en="Skopsko Weiss" data-mk="Скопско Weiss">Skopsko Weiss</span>
                 <span class="item-price">180 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Birra Moretti</span>
+                <span class="item-name" data-en="Birra Moretti" data-mk="Birra Moretti">Birra Moretti</span>
                 <span class="item-price">180 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Amstel</span>
+                <span class="item-name" data-en="Amstel" data-mk="Amstel">Amstel</span>
                 <span class="item-price">170 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Heineken</span>
+                <span class="item-name" data-en="Heineken" data-mk="Heineken">Heineken</span>
                 <span class="item-price">200 ден</span>
             </div>
         </div>
@@ -613,19 +707,21 @@
     <section class="section" id="wine">
         <div class="section-header">
             <span class="section-number">04</span>
-            <h2 class="section-title"><em>Wine</em></h2>
+            <h2 class="section-title"><em
+                    data-en="Wine"
+                    data-mk="Вино">Wine</em></h2>
         </div>
         <div class="items">
             <div class="item">
-                <span class="item-name">White Wine</span>
+                <span class="item-name" data-en="White Wine" data-mk="Бело вино">White Wine</span>
                 <span class="item-price">150 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Rose Wine</span>
+                <span class="item-name" data-en="Rose Wine" data-mk="Розе вино">Rose Wine</span>
                 <span class="item-price">150 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Red Wine</span>
+                <span class="item-name" data-en="Red Wine" data-mk="Црвено вино">Red Wine</span>
                 <span class="item-price">180 ден</span>
             </div>
         </div>
@@ -634,55 +730,57 @@
     <section class="section" id="alcohol">
         <div class="section-header">
             <span class="section-number">05</span>
-            <h2 class="section-title"><em>Alcohol</em></h2>
+            <h2 class="section-title"><em
+                    data-en="Alcohol"
+                    data-mk="Алкохол">Alcohol</em></h2>
         </div>
         <div class="items">
             <div class="item">
-                <span class="item-name">Jack Daniel's</span>
+                <span class="item-name" data-en="Jack Daniel's" data-mk="Jack Daniel's">Jack Daniel's</span>
                 <span class="item-price">280 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Jameson</span>
+                <span class="item-name" data-en="Jameson" data-mk="Jameson">Jameson</span>
                 <span class="item-price">250 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Jameson black</span>
+                <span class="item-name" data-en="Jameson black" data-mk="Jameson Black">Jameson black</span>
                 <span class="item-price">350 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Tequila</span>
+                <span class="item-name" data-en="Tequila" data-mk="Текила">Tequila</span>
                 <span class="item-price">200 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Finlandia vodka</span>
+                <span class="item-name" data-en="Finlandia vodka" data-mk="Finlandia вотка">Finlandia vodka</span>
                 <span class="item-price">250 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Grey Goose vodka</span>
+                <span class="item-name" data-en="Grey Goose vodka" data-mk="Grey Goose вотка">Grey Goose vodka</span>
                 <span class="item-price">350 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Martini Bianco</span>
+                <span class="item-name" data-en="Martini Bianco" data-mk="Martini Bianco">Martini Bianco</span>
                 <span class="item-price">160 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Martini Rosso</span>
+                <span class="item-name" data-en="Martini Rosso" data-mk="Martini Rosso">Martini Rosso</span>
                 <span class="item-price">160 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Zlatni Pelin</span>
+                <span class="item-name" data-en="Zlatni Pelin" data-mk="Златен пелин">Zlatni Pelin</span>
                 <span class="item-price">200 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Gin</span>
+                <span class="item-name" data-en="Gin" data-mk="Џин">Gin</span>
                 <span class="item-price">210 ден</span>
             </div>
             <div class="item">
-                <span class="item-name">Rakija</span>
+                <span class="item-name" data-en="Rakija" data-mk="Ракија">Rakija</span>
                 <span class="item-price">180 ден</span>
             </div>
             <div class="item">
-                    <span class="item-name">Bacardi White Rum</span>
+                <span class="item-name" data-en="Bacardi White Rum" data-mk="Bacardi White Rum">Bacardi White Rum</span>
                 <span class="item-price">200 ден</span>
             </div>
         </div>
@@ -694,41 +792,112 @@
 <footer class="footer">
     <h2 class="footer-name">Loom</h2>
     <p class="footer-info">
-        Art &amp; Culture · Miroslav Krleza 46, 1-1, Skopje, North Macedonia<br>
-        Open Mon–Sun · 09:00 – 00:00<br>
+        <span
+                data-en="Art &amp; Culture · Miroslav Krleza 46, 1-1, Skopje, North Macedonia"
+                data-mk="Art &amp; Culture · Мирослав Крлежа 46, 1-1, Скопје, Северна Македонија">
+            Art &amp; Culture · Miroslav Krleza 46, 1-1, Skopje, North Macedonia
+        </span><br>
+        <span
+                data-en="Open Mon–Sun · 09:00 – 00:00"
+                data-mk="Отворено Пон–Нед · 09:00 – 00:00">
+            Open Mon–Sun · 09:00 – 00:00
+        </span><br>
         <a href="https://www.instagram.com/loom.skopje/" target="_blank">@loom.skopje</a>
     </p>
-    <p class="footer-tagline">art, drinks & everything in between.</p>
+    <p class="footer-tagline"
+       data-en="art, drinks &amp; everything in between."
+       data-mk="уметност, пијалаци и сè помеѓу.">
+        art, drinks &amp; everything in between.
+    </p>
 </footer>
 
 <script>
-    // Highlight active tab on scroll
+    // ─────────────────────────────
+    // LANGUAGE SWITCHER
+    // ─────────────────────────────
+
+    const languageButtons = document.querySelectorAll('.language-btn');
+    const translatableElements = document.querySelectorAll('[data-en][data-mk]');
+
+    function setLanguage(language) {
+        translatableElements.forEach(element => {
+            element.innerHTML = element.dataset[language];
+        });
+
+        languageButtons.forEach(button => {
+            button.classList.toggle(
+                'active',
+                button.dataset.lang === language
+            );
+        });
+
+        document.documentElement.lang = language;
+        localStorage.setItem('loom-language', language);
+    }
+
+    languageButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            setLanguage(button.dataset.lang);
+        });
+    });
+
+    const savedLanguage = localStorage.getItem('loom-language') || 'en';
+    setLanguage(savedLanguage);
+
+
+    // ─────────────────────────────
+    // HIGHLIGHT ACTIVE TAB ON SCROLL
+    // ─────────────────────────────
+
     const sections = document.querySelectorAll('.section');
-    const tabs     = document.querySelectorAll('.tab');
+    const tabs = document.querySelectorAll('.tab');
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const id = entry.target.id;
-                tabs.forEach(t => {
-                    t.classList.toggle('active', t.getAttribute('href') === `#${id}`);
+
+                tabs.forEach(tab => {
+                    tab.classList.toggle(
+                        'active',
+                        tab.getAttribute('href') === `#${id}`
+                    );
                 });
             }
         });
-    }, { rootMargin: '-40% 0px -50% 0px' });
+    }, {
+        rootMargin: '-40% 0px -50% 0px'
+    });
 
-    sections.forEach(s => observer.observe(s));
+    sections.forEach(section => observer.observe(section));
 
-    // Smooth scroll on tab click
+
+    // ─────────────────────────────
+    // SMOOTH SCROLL ON TAB CLICK
+    // ─────────────────────────────
+
     tabs.forEach(tab => {
-        tab.addEventListener('click', e => {
-            e.preventDefault();
-            const target = document.querySelector(tab.getAttribute('href'));
-            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        tab.addEventListener('click', event => {
+            event.preventDefault();
+
+            const target = document.querySelector(
+                tab.getAttribute('href')
+            );
+
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
         });
     });
 
-    // Fade-in sections on scroll
+
+    // ─────────────────────────────
+    // FADE-IN SECTIONS ON SCROLL
+    // ─────────────────────────────
+
     const fadeObs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -736,13 +905,17 @@
                 entry.target.style.transform = 'translateY(0)';
             }
         });
-    }, { threshold: 0.1 });
+    }, {
+        threshold: 0.1
+    });
 
-    sections.forEach(s => {
-        s.style.opacity = '0';
-        s.style.transform = 'translateY(30px)';
-        s.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-        fadeObs.observe(s);
+    sections.forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(30px)';
+        section.style.transition =
+            'opacity 0.8s ease, transform 0.8s ease';
+
+        fadeObs.observe(section);
     });
 </script>
 
